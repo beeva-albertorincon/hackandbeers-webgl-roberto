@@ -1,13 +1,13 @@
 
 var camera, scene, renderer, mesh, mouse, controls,
-	width = window.innerWidth, 
+	width = window.innerWidth,
 	height = window.innerHeight;
 
 var clock = new THREE.Clock();
 var mouse = new THREE.Vector2();
 
 var current = new THREE.Object3D();
-	
+
 init();
 animate();
 
@@ -64,16 +64,16 @@ function buildMaterials(){
 			]
 
 		for(var o = 0; o<letters.length; o++){
-			var spritey = makeTextSprite( letters[o].text, 
-				{ 
-					fontsize: 40, 
-					borderColor: {r:255, g:0, b:0, a:0}, 
-					backgroundColor: {r:255, g:255, b:255, a:0}, 
+			var spritey = makeTextSprite( letters[o].text,
+				{
+					fontsize: 40,
+					borderColor: {r:255, g:0, b:0, a:0},
+					backgroundColor: {r:255, g:255, b:255, a:0},
 					color: '#ffffff',
-					scale: { x: 600, y: 500 } 
+					scale: { x: 600, y: 500 }
 				});
 			spritey.position.set(letters[o].x,letters[o].y,letters[o].z);
-			current.add( spritey );			
+			current.add( spritey );
 		}
 
 		//-----------------------------------------------
@@ -144,16 +144,16 @@ function buildObjects(){
 			]
 
 		for(var o = 0; o<letters.length; o++){
-			var spritey = makeTextSprite( letters[o].text, 
-				{ 
-					fontsize: 40, 
-					borderColor: {r:255, g:0, b:0, a:0}, 
-					backgroundColor: {r:255, g:255, b:255, a:0}, 
+			var spritey = makeTextSprite( letters[o].text,
+				{
+					fontsize: 40,
+					borderColor: {r:255, g:0, b:0, a:0},
+					backgroundColor: {r:255, g:255, b:255, a:0},
 					color: '#ffffff',
-					scale: { x: 600, y: 500 } 
+					scale: { x: 600, y: 500 }
 				});
 			spritey.position.set(letters[o].x,letters[o].y,letters[o].z);
-			current.add( spritey );			
+			current.add( spritey );
 		}
 
 		//-----------------------------------------------
@@ -174,7 +174,7 @@ function buildObjects(){
 			cube.scale.set(1,1,1); //escala del objeto(x,y,z)
 		current.add( cube );
 
-		//-----------------------------------------------	
+		//-----------------------------------------------
 		//-------------CIRCLE----------------------------
 
 		var CIRCLEmaterial = new THREE.MeshPhongMaterial( {color: 0x0033ff, emissive: 0x000033, specular: 0x111111, shininess: 100, metal: true, side: THREE.DoubleSide} );
@@ -233,7 +233,7 @@ function buildObjects(){
 			donut.scale.set(1,1,1);		//escala del objeto(x,y,z)
 		current.add( donut );
 
-		//-------------------------------------------------	
+		//-------------------------------------------------
 		//--------------CYLINDER---------------------------
 
 		var CYLINDERmaterial = new THREE.MeshPhongMaterial( {color: 0x0033ff, emissive: 0x000033, specular: 0x111111, shininess: 100, metal: true, side: THREE.DoubleSide} );
@@ -293,7 +293,7 @@ function buildObjects(){
 			sphere.position.set(-700,-1000,0);	//position del objeto(x,y,z)
 			sphere.rotation.set(0,0,0);	//rotacion del objeto(x,y,z)
 			sphere.scale.set(1,1,1);	//escala del objeto(x,y,z)
-		current.add( sphere );	
+		current.add( sphere );
 
 		//-----------------------------------------------
 		//----------curve lines--------------------------------
@@ -320,8 +320,8 @@ function buildObjects(){
 		var splinePoints = spline.getPoints(numPoints);
 
 		for(var o = 0; o < splinePoints.length; o++){
-			    geometryspline.vertices.push(splinePoints[o]);  
-			}	
+			    geometryspline.vertices.push(splinePoints[o]);
+			}
 
 		var linespline = new THREE.Line(geometryspline, materialspline);
 
@@ -358,37 +358,37 @@ function makeTextSprite( message, parameters )
 {
     console.log('make text sprite: ', message, parameters);
 	if ( parameters === undefined ) parameters = {};
-	
-	var fontface = parameters.hasOwnProperty("fontface") ? 
+
+	var fontface = parameters.hasOwnProperty("fontface") ?
 		parameters["fontface"] : "Arial";
-	
-	var fontsize = parameters.hasOwnProperty("fontsize") ? 
+
+	var fontsize = parameters.hasOwnProperty("fontsize") ?
 		parameters["fontsize"] : 18;
-	
-	var borderThickness = parameters.hasOwnProperty("borderThickness") ? 
+
+	var borderThickness = parameters.hasOwnProperty("borderThickness") ?
 		parameters["borderThickness"] : 4;
-	
+
 	var borderColor = parameters.hasOwnProperty("borderColor") ?
 		parameters["borderColor"] : { r:0, g:0, b:0, a:1.0 };
-	
+
 	var backgroundColor = parameters.hasOwnProperty("backgroundColor") ?
 		parameters["backgroundColor"] : { r:255, g:255, b:255, a:1.0 };
 
-    var color = parameters.color;    
+    var color = parameters.color;
 
 	/*var Color = parameters.hasOwnProperty("color") ?
-		parameters["color"] : { r:255, g:255, b:255, a:1.0 };*/	
+		parameters["color"] : { r:255, g:255, b:255, a:1.0 };*/
 
 	var spriteAlignment = THREE.SpriteAlignment;
-		
+
 	var canvas = document.createElement('canvas');
 	var context = canvas.getContext('2d');
 	context.font = "Bold " + fontsize + "px " + fontface;
-    
+
 	// get size data (height depends only on font size)
 	var metrics = context.measureText( message );
 	var textWidth = metrics.width;
-	
+
 	// background color
 	context.fillStyle   = "rgba(" + backgroundColor.r + "," + backgroundColor.g + ","
 								  + backgroundColor.b + "," + backgroundColor.a + ")";
@@ -399,25 +399,25 @@ function makeTextSprite( message, parameters )
 	context.lineWidth = borderThickness;
 	roundRect(context, borderThickness/2, borderThickness/2, textWidth + borderThickness, fontsize * 1.4 + borderThickness, 6);
 	// 1.4 is extra height factor for text below baseline: g,j,p,q.
-	
+
 	// text color
 	context.fillStyle = parameters.color;
 
 	context.fillText( message, borderThickness, fontsize + borderThickness);
-	
+
 	// canvas contents will be used for a texture
-	var texture = new THREE.Texture(canvas) 
+	var texture = new THREE.Texture(canvas)
 	texture.needsUpdate = true;
 
-	var spriteMaterial = new THREE.SpriteMaterial( 
+	var spriteMaterial = new THREE.SpriteMaterial(
 		{ map: texture, useScreenCoordinates: false, alignment: spriteAlignment } );
 	var sprite = new THREE.Sprite( spriteMaterial );
 	sprite.scale.set(parameters.scale.x,parameters.scale.y,4.0);
-	return sprite;	
+	return sprite;
 }
 
 // function for drawing rounded rectangles
-function roundRect(ctx, x, y, w, h, r) 
+function roundRect(ctx, x, y, w, h, r)
 {
     ctx.beginPath();
     ctx.moveTo(x+r, y);
@@ -431,25 +431,25 @@ function roundRect(ctx, x, y, w, h, r)
     ctx.quadraticCurveTo(x, y, x+r, y);
     ctx.closePath();
     ctx.fill();
-	ctx.stroke();   
+	ctx.stroke();
 }
 
 function legendSystem(spriteDatas){
 	var length = spriteDatas.length;
 
 	for(var a = 0; a<length; a++){
-		var spritey = makeTextSprite( spriteDatas[a].text, 
-			{ 
-				fontsize: spriteDatas[a].fontSize, 
-				borderColor: {r:255, g:0, b:0, a:0}, 
-				backgroundColor: {r:spriteDatas[a].bgColor.r, g:spriteDatas[a].bgColor.g, b:spriteDatas[a].bgColor.b, a:spriteDatas[a].bgColor.a}, 
+		var spritey = makeTextSprite( spriteDatas[a].text,
+			{
+				fontsize: spriteDatas[a].fontSize,
+				borderColor: {r:255, g:0, b:0, a:0},
+				backgroundColor: {r:spriteDatas[a].bgColor.r, g:spriteDatas[a].bgColor.g, b:spriteDatas[a].bgColor.b, a:spriteDatas[a].bgColor.a},
 				color: spriteDatas[a].color,
-				scale: spriteDatas[a].scale 
+				scale: spriteDatas[a].scale
 			});
 		spritey.position.set(spriteDatas[a].x,spriteDatas[a].y,spriteDatas[a].z);
 		legendGroup.add( spritey );
 		}
-	scene.add(legendGroup);	    
+	scene.add(legendGroup);
 }
 
 function onWindowResize() {
@@ -472,7 +472,7 @@ function movement(value, object, delay, duration){
 
 function removeObject(){
 	if(current.children.length > 0){
-		for( var i = current.children.length - 1; i >= 0; i--) { 
+		for( var i = current.children.length - 1; i >= 0; i--) {
 			current.remove(current.children[i]);
 		}
 		scene.remove(current);
